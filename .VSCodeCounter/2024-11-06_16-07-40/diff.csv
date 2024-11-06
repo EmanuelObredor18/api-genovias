@@ -1,0 +1,12 @@
+"filename", "language", "Java", "comment", "blank", "total"
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\config\BaseServiceConfig.java", "Java", 8, 0, -1, 7
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\config\EntityFactoryConfig.java", "Java", -2, 0, 0, -2
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\controller\BaseController.java", "Java", 5, 0, 1, 6
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\controller\VehiculoController.java", "Java", 13, 0, 6, 19
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\dto\VehiculoDTO.java", "Java", 5, 0, 2, 7
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\ReporteAccidente.java", "Java", 2, 0, 0, 2
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\factory\EntityFactory.java", "Java", -1, 0, 0, -1
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\BaseService.java", "Java", 12, 0, 10, 22
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\UsuarioConductorService.java", "Java", 16, 0, 11, 27
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\dto\VehiculoDTOProcess.java", "Java", 21, 0, 11, 32
+"Total", "-", 79, 0, 40, 119

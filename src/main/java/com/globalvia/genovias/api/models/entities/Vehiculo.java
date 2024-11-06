@@ -1,12 +1,11 @@
 package com.globalvia.genovias.api.models.entities;
 
+import com.globalvia.genovias.api.models.base.Copyable;
 import com.globalvia.genovias.api.models.base.Identificable;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -23,17 +22,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class Vehiculo implements Identificable<Long> {
+public class Vehiculo implements Identificable<String>, Copyable<Vehiculo> {
   
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
   @Column(nullable = false, length = 7)
   private String placa;
 
   @ManyToOne(cascade = {CascadeType.PERSIST})
   @JoinColumn(nullable = false, name = "usuarioConductor")
   private UsuarioConductor usuarioConductor;
+
+  @Override
+  public String getId() {
+    return placa;
+  }
+
+  @Override
+  public Vehiculo copyWith(Vehiculo copy) {
+    return Vehiculo.builder()
+        .placa(copy.placa != null ? copy.placa : this.placa)
+        .usuarioConductor(copy.usuarioConductor != null ? copy.usuarioConductor.copyWith(copy.usuarioConductor) : this.usuarioConductor)
+        .build();
+  }
 
 }

@@ -1,0 +1,97 @@
+Date : 2024-11-06 12:34:37
+Directory : c:\Users\PC REPORTES\Desktop\Spring\api
+Total : 38 files,  816 codes, 46 comments, 270 blanks, all 1132 lines
+
+Languages
++-----------------+------------+------------+------------+------------+------------+
+| language        | files      | code       | comment    | blank      | total      |
++-----------------+------------+------------+------------+------------+------------+
+| Java            |         34 |        594 |          0 |        239 |        833 |
+| Batch           |          1 |        108 |         26 |         16 |        150 |
+| XML             |          1 |        103 |          4 |         10 |        117 |
+| Java Properties |          2 |         11 |         16 |          5 |         32 |
++-----------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                          | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                             |         38 |        816 |         46 |        270 |      1,132 |
+| . (Files)                                                                                                                     |          2 |        211 |         30 |         26 |        267 |
+| .mvn                                                                                                                          |          1 |          3 |         16 |          1 |         20 |
+| .mvn\wrapper                                                                                                                  |          1 |          3 |         16 |          1 |         20 |
+| src                                                                                                                           |         35 |        602 |          0 |        243 |        845 |
+| src\main                                                                                                                      |         34 |        593 |          0 |        238 |        831 |
+| src\main\java                                                                                                                 |         33 |        585 |          0 |        234 |        819 |
+| src\main\java\com                                                                                                             |         33 |        585 |          0 |        234 |        819 |
+| src\main\java\com\globalvia                                                                                                   |         33 |        585 |          0 |        234 |        819 |
+| src\main\java\com\globalvia\genovias                                                                                          |         33 |        585 |          0 |        234 |        819 |
+| src\main\java\com\globalvia\genovias\api                                                                                      |         33 |        585 |          0 |        234 |        819 |
+| src\main\java\com\globalvia\genovias\api (Files)                                                                              |          1 |          9 |          0 |          5 |         14 |
+| src\main\java\com\globalvia\genovias\api\config                                                                               |          4 |         59 |          0 |         21 |         80 |
+| src\main\java\com\globalvia\genovias\api\controller                                                                           |          2 |         36 |          0 |         14 |         50 |
+| src\main\java\com\globalvia\genovias\api\exceptions                                                                           |          2 |         12 |          0 |          6 |         18 |
+| src\main\java\com\globalvia\genovias\api\models                                                                               |         11 |        276 |          0 |         76 |        352 |
+| src\main\java\com\globalvia\genovias\api\models\base                                                                          |          2 |          8 |          0 |          6 |         14 |
+| src\main\java\com\globalvia\genovias\api\models\dto                                                                           |          3 |         63 |          0 |         22 |         85 |
+| src\main\java\com\globalvia\genovias\api\models\entities                                                                      |          5 |        194 |          0 |         44 |        238 |
+| src\main\java\com\globalvia\genovias\api\models\factory                                                                       |          1 |         11 |          0 |          4 |         15 |
+| src\main\java\com\globalvia\genovias\api\repositories                                                                         |          3 |         17 |          0 |         15 |         32 |
+| src\main\java\com\globalvia\genovias\api\response                                                                             |          2 |         14 |          0 |          8 |         22 |
+| src\main\java\com\globalvia\genovias\api\services                                                                             |          4 |         94 |          0 |         47 |        141 |
+| src\main\java\com\globalvia\genovias\api\services (Files)                                                                     |          2 |         65 |          0 |         27 |         92 |
+| src\main\java\com\globalvia\genovias\api\services\dto                                                                         |          2 |         29 |          0 |         20 |         49 |
+| src\main\java\com\globalvia\genovias\api\validator                                                                            |          4 |         68 |          0 |         42 |        110 |
+| src\main\resources                                                                                                            |          1 |          8 |          0 |          4 |         12 |
+| src\test                                                                                                                      |          1 |          9 |          0 |          5 |         14 |
+| src\test\java                                                                                                                 |          1 |          9 |          0 |          5 |         14 |
+| src\test\java\com                                                                                                             |          1 |          9 |          0 |          5 |         14 |
+| src\test\java\com\globalvia                                                                                                   |          1 |          9 |          0 |          5 |         14 |
+| src\test\java\com\globalvia\genovias                                                                                          |          1 |          9 |          0 |          5 |         14 |
+| src\test\java\com\globalvia\genovias\api                                                                                      |          1 |          9 |          0 |          5 |         14 |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
+| filename                                                                                                                      | language        | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
+| c:\Users\PC REPORTES\Desktop\Spring\api\.mvn\wrapper\maven-wrapper.properties                                                 | Java Properties |          3 |         16 |          1 |         20 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\mvnw.cmd                                                                              | Batch           |        108 |         26 |         16 |        150 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\pom.xml                                                                               | XML             |        103 |          4 |         10 |        117 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\ApiApplication.java                          | Java            |          9 |          0 |          5 |         14 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\config\BaseServiceConfig.java                | Java            |         21 |          0 |          8 |         29 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\config\EntityFactoryConfig.java              | Java            |         21 |          0 |          7 |         28 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\config\InvalidOperationException.java        | Java            |          6 |          0 |          2 |          8 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\config\ModelMapperConfig.java                | Java            |         11 |          0 |          4 |         15 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\controller\BaseController.java               | Java            |         23 |          0 |          8 |         31 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\controller\ReporteAccidenteController.java   | Java            |         13 |          0 |          6 |         19 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\exceptions\EntityFoundException.java         | Java            |          6 |          0 |          2 |          8 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\exceptions\EntityNotFoundException.java      | Java            |          6 |          0 |          4 |         10 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\base\Copyable.java                    | Java            |          4 |          0 |          2 |          6 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\base\Identificable.java               | Java            |          4 |          0 |          4 |          8 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\dto\ReporteAccidenteDTO.java          | Java            |         31 |          0 |         10 |         41 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\dto\UsuarioConductorDTO.java          | Java            |         15 |          0 |          7 |         22 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\dto\VehiculoDTO.java                  | Java            |         17 |          0 |          5 |         22 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\Direccion.java               | Java            |         34 |          0 |          8 |         42 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\PuntoReferencia.java         | Java            |         26 |          0 |          7 |         33 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\ReporteAccidente.java        | Java            |         54 |          0 |         11 |         65 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\UsuarioConductor.java        | Java            |         40 |          0 |          9 |         49 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\Vehiculo.java                | Java            |         40 |          0 |          9 |         49 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\factory\EntityFactory.java            | Java            |         11 |          0 |          4 |         15 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\repositories\ReporteAccidenteRepository.java | Java            |          7 |          0 |          5 |         12 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\repositories\UsuarioConductorRepository.java | Java            |          5 |          0 |          5 |         10 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\repositories\VehiculoRepository.java         | Java            |          5 |          0 |          5 |         10 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\response\ResponseBody.java                   | Java            |         10 |          0 |          6 |         16 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\response\ResponseStatus.java                 | Java            |          4 |          0 |          2 |          6 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\BaseService.java                    | Java            |         47 |          0 |         18 |         65 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\VehiculoService.java                | Java            |         18 |          0 |          9 |         27 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\dto\DTOProcessService.java          | Java            |          4 |          0 |          5 |          9 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\dto\ReporteAccidenteDTOProcess.java | Java            |         25 |          0 |         15 |         40 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\validator\ReporteAccidenteValidator.java     | Java            |         22 |          0 |         11 |         33 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\validator\UsuarioConductorValidator.java     | Java            |         10 |          0 |          6 |         16 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\validator\Validator.java                     | Java            |         26 |          0 |         19 |         45 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\validator\VehiculoValidator.java             | Java            |         10 |          0 |          6 |         16 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\main\resources\application.properties                                             | Java Properties |          8 |          0 |          4 |         12 |
+| c:\Users\PC REPORTES\Desktop\Spring\api\src\test\java\com\globalvia\genovias\api\ApiApplicationTests.java                     | Java            |          9 |          0 |          5 |         14 |
+| Total                                                                                                                         |                 |        816 |         46 |        270 |      1,132 |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+

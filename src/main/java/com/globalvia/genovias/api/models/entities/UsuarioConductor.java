@@ -1,5 +1,6 @@
 package com.globalvia.genovias.api.models.entities;
 
+import com.globalvia.genovias.api.models.base.Copyable;
 import com.globalvia.genovias.api.models.base.Identificable;
 
 import jakarta.persistence.Column;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class UsuarioConductor implements Identificable<Long> {
+public class UsuarioConductor implements Identificable<Long>, Copyable<UsuarioConductor> {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +35,14 @@ public class UsuarioConductor implements Identificable<Long> {
 
   @Column(nullable = false, length = 80)
   private String cedula;
+
+  @Override
+  public UsuarioConductor copyWith(UsuarioConductor copy) {
+    return UsuarioConductor.builder()
+      .id(copy.id != null ? copy.id : this.id)
+      .cedula(copy.cedula != null ? copy.cedula : this.cedula)
+      .apellido(copy.apellido != null ? copy.apellido : this.apellido)
+      .nombre(copy.nombre != null ? copy.nombre : this.nombre)
+      .build();
+  }
 }

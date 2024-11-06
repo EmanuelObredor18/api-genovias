@@ -1,0 +1,40 @@
+"filename", "language", "Java Properties", "Java", "XML", "Batch", "comment", "blank", "total"
+"c:\Users\PC REPORTES\Desktop\Spring\api\.mvn\wrapper\maven-wrapper.properties", "Java Properties", 3, 0, 0, 0, 16, 1, 20
+"c:\Users\PC REPORTES\Desktop\Spring\api\mvnw.cmd", "Batch", 0, 0, 0, 108, 26, 16, 150
+"c:\Users\PC REPORTES\Desktop\Spring\api\pom.xml", "XML", 0, 0, 103, 0, 4, 10, 117
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\ApiApplication.java", "Java", 0, 9, 0, 0, 0, 5, 14
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\config\BaseServiceConfig.java", "Java", 0, 21, 0, 0, 0, 8, 29
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\config\EntityFactoryConfig.java", "Java", 0, 21, 0, 0, 0, 7, 28
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\config\InvalidOperationException.java", "Java", 0, 6, 0, 0, 0, 2, 8
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\config\ModelMapperConfig.java", "Java", 0, 11, 0, 0, 0, 4, 15
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\controller\BaseController.java", "Java", 0, 23, 0, 0, 0, 8, 31
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\controller\ReporteAccidenteController.java", "Java", 0, 13, 0, 0, 0, 6, 19
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\exceptions\EntityFoundException.java", "Java", 0, 6, 0, 0, 0, 2, 8
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\exceptions\EntityNotFoundException.java", "Java", 0, 6, 0, 0, 0, 4, 10
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\base\Copyable.java", "Java", 0, 4, 0, 0, 0, 2, 6
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\base\Identificable.java", "Java", 0, 4, 0, 0, 0, 4, 8
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\dto\ReporteAccidenteDTO.java", "Java", 0, 31, 0, 0, 0, 10, 41
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\dto\UsuarioConductorDTO.java", "Java", 0, 15, 0, 0, 0, 7, 22
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\dto\VehiculoDTO.java", "Java", 0, 17, 0, 0, 0, 5, 22
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\Direccion.java", "Java", 0, 34, 0, 0, 0, 8, 42
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\PuntoReferencia.java", "Java", 0, 26, 0, 0, 0, 7, 33
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\ReporteAccidente.java", "Java", 0, 54, 0, 0, 0, 11, 65
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\UsuarioConductor.java", "Java", 0, 40, 0, 0, 0, 9, 49
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\entities\Vehiculo.java", "Java", 0, 40, 0, 0, 0, 9, 49
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\models\factory\EntityFactory.java", "Java", 0, 11, 0, 0, 0, 4, 15
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\repositories\ReporteAccidenteRepository.java", "Java", 0, 7, 0, 0, 0, 5, 12
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\repositories\UsuarioConductorRepository.java", "Java", 0, 5, 0, 0, 0, 5, 10
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\repositories\VehiculoRepository.java", "Java", 0, 5, 0, 0, 0, 5, 10
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\response\ResponseBody.java", "Java", 0, 10, 0, 0, 0, 6, 16
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\response\ResponseStatus.java", "Java", 0, 4, 0, 0, 0, 2, 6
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\BaseService.java", "Java", 0, 47, 0, 0, 0, 18, 65
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\VehiculoService.java", "Java", 0, 18, 0, 0, 0, 9, 27
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\dto\DTOProcessService.java", "Java", 0, 4, 0, 0, 0, 5, 9
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\services\dto\ReporteAccidenteDTOProcess.java", "Java", 0, 25, 0, 0, 0, 15, 40
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\validator\ReporteAccidenteValidator.java", "Java", 0, 22, 0, 0, 0, 11, 33
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\validator\UsuarioConductorValidator.java", "Java", 0, 10, 0, 0, 0, 6, 16
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\validator\Validator.java", "Java", 0, 26, 0, 0, 0, 19, 45
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\java\com\globalvia\genovias\api\validator\VehiculoValidator.java", "Java", 0, 10, 0, 0, 0, 6, 16
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\main\resources\application.properties", "Java Properties", 8, 0, 0, 0, 0, 4, 12
+"c:\Users\PC REPORTES\Desktop\Spring\api\src\test\java\com\globalvia\genovias\api\ApiApplicationTests.java", "Java", 0, 9, 0, 0, 0, 5, 14
+"Total", "-", 11, 594, 103, 108, 46, 270, 1132

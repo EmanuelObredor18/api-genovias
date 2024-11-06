@@ -3,15 +3,14 @@ package com.globalvia.genovias.api.models.entities;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.globalvia.genovias.api.models.base.Copyable;
 import com.globalvia.genovias.api.models.base.Identificable;
-import com.globalvia.genovias.api.response.enums.Estado;
 
-import jakarta.persistence.CascadeType;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,28 +32,35 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class ReporteAccidente implements Identificable<Long> {
-  
+public class ReporteAccidente implements Identificable<Long>, Copyable<ReporteAccidente> {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Schema(description = "ID of the entity", accessMode = Schema.AccessMode.READ_ONLY)
   private Long id;
 
   @Column(nullable = false)
   private LocalDateTime fecha;
 
   @Builder.Default
-  @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinTable(
-    name = "accidentes_vehiculos", 
-    joinColumns = @JoinColumn(nullable = false, name = "reporte_id"),
-    inverseJoinColumns = @JoinColumn(nullable = false, name = "vehiculo_id")
-  )
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "accidentes_vehiculos", joinColumns = @JoinColumn(nullable = false, name = "reporte_id"), inverseJoinColumns = @JoinColumn(nullable = false, name = "vehiculo_id"))
   private Set<Vehiculo> vehiculos = new HashSet<>();
 
   @ManyToOne
   @JoinColumn(name = "direccion", nullable = false)
   private Direccion direccion;
 
-  @Enumerated(EnumType.STRING)
-  private Estado estado;
+  @Override
+  public ReporteAccidente copyWith(ReporteAccidente copy) {
+    return ReporteAccidente.builder()
+        .id(copy.getId() != null ? copy.getId() : this.getId())
+        .vehiculos(copy.getVehiculos() != null && !copy.getVehiculos().isEmpty()
+            ? copy.vehiculos.stream().map(vehiculo -> vehiculo.copyWith(vehiculo)).collect(Collectors.toSet())
+            : this.getVehiculos())
+        .direccion(copy.getDireccion() != null ? copy.direccion : this.direccion)
+        .fecha(copy.getFecha() != null ? copy.fecha : this.fecha)
+        .build();
+  }
+
 }
