@@ -1,4 +1,7 @@
-package com.globalvia.genovias.api.validator;
+package com.globalvia.genovias.api.validator.base;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,10 +16,10 @@ public class Validator<E extends Identificable<ID>, ID> {
 
   private final JpaRepository<E, ID> repository;
 
-  public final void validate(E entity, boolean isNew) {
-    
-    validateExistence(entity.getId(), isNew);
-    
+  private final List<VoidCallback> validators = new LinkedList<>();
+
+  public final void validate() {
+    validators.forEach(callBack -> callBack.apply());
   };
 
   
@@ -41,4 +44,9 @@ public class Validator<E extends Identificable<ID>, ID> {
   }
 
   public void validateUniqueFields(Object... fields) {}
+
+  public Validator<E, ID> addValidation(VoidCallback callback) {
+    validators.add(callback);
+    return this;
+  }
 }

@@ -27,13 +27,12 @@ public class ReporteAccidenteDTOProcess implements DTOProcessService<ReporteAcci
 
     ReporteAccidente reporteAccidente = modelMapper.map(input, ReporteAccidente.class);
 
-    validator.validateUniqueFields(input.getFecha());
+    validator.buildValidator(reporteAccidente).validate();
 
     return reporteAccidente
         .copyWith(ReporteAccidente.builder().vehiculos(vehiculos).build());
     
     
   }
-
 
 }

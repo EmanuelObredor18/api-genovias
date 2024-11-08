@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.globalvia.genovias.api.models.entities.Vehiculo;
 import com.globalvia.genovias.api.repositories.VehiculoRepository;
-import com.globalvia.genovias.api.validator.VehiculoValidator;
+import com.globalvia.genovias.api.validator.base.Validator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class VehiculoService {
 
-  private final VehiculoValidator vehiculoValidator;
+  private final Validator<Vehiculo, String> vehiculoValidator;
   private final VehiculoRepository repository;
 
   public Set<Vehiculo> getVehiculosByPlaca(Set<String> placas) {

@@ -10,7 +10,7 @@ import com.globalvia.genovias.api.models.entities.Vehiculo;
 import com.globalvia.genovias.api.models.factory.EntityFactory;
 import com.globalvia.genovias.api.services.BaseService;
 import com.globalvia.genovias.api.services.dto.DTOProcessService;
-import com.globalvia.genovias.api.validator.Validator;
+import com.globalvia.genovias.api.validator.base.Validator;
 
 @Configuration
 public class BaseServiceConfig {

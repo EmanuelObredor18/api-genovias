@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.globalvia.genovias.api.auth.model.UserEntity;
 import com.globalvia.genovias.api.models.base.Copyable;
 import com.globalvia.genovias.api.models.base.Identificable;
 
@@ -51,6 +52,14 @@ public class ReporteAccidente implements Identificable<Long>, Copyable<ReporteAc
   @JoinColumn(name = "direccion", nullable = false)
   private Direccion direccion;
 
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(nullable = false)
+  private TipoAccidente tipoAccidente;
+
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(nullable = false)
+  private UserEntity responsable;
+
   @Override
   public ReporteAccidente copyWith(ReporteAccidente copy) {
     return ReporteAccidente.builder()
@@ -60,6 +69,7 @@ public class ReporteAccidente implements Identificable<Long>, Copyable<ReporteAc
             : this.getVehiculos())
         .direccion(copy.getDireccion() != null ? copy.direccion : this.direccion)
         .fecha(copy.getFecha() != null ? copy.fecha : this.fecha)
+        .tipoAccidente(tipoAccidente.copyWith(tipoAccidente))
         .build();
   }
 
