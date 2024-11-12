@@ -1,5 +1,6 @@
 package com.globalvia.genovias.api.models.entities;
 
+import com.globalvia.genovias.api.models.base.Copyable;
 import com.globalvia.genovias.api.models.base.Identificable;
 
 import jakarta.persistence.Column;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class PuntoReferencia implements Identificable<Byte> {
+public class PuntoReferencia implements Identificable<Byte>, Copyable<PuntoReferencia, Byte> {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +29,18 @@ public class PuntoReferencia implements Identificable<Byte> {
 
   @Column(nullable = false, length = 50)
   private String nombre;
+
+  @Override
+  public PuntoReferencia copyWith(PuntoReferencia copy) {
+    return PuntoReferencia.builder()
+      .id(copy.id != null ? copy.id : this.id)
+      .nombre(copy.nombre != null ? copy.nombre : this.nombre)
+      .build();
+  }
+
+  @Override
+  public PuntoReferencia copyId(Byte id) {
+    return copyWith(PuntoReferencia.builder().id(id).build());
+  }
 
 }

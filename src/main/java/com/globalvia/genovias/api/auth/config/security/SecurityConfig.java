@@ -15,46 +15,50 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import com.globalvia.genovias.api.auth.config.filters.JwtTokenValidator;
+import com.globalvia.genovias.api.auth.service.UserDetailServiceImpl;
 import com.globalvia.genovias.api.auth.util.JwtUtils;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-  
-//   @Autowired
-//   private JwtUtils jwtUtils;
 
+  @Autowired
+  private JwtUtils jwtUtils;
 
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
-      .csrf(csrf -> csrf.disable())
-      
-      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-      .authorizeHttpRequests(http -> {
-        //http.requestMatchers("/api_key").permitAll();
-        http.anyRequest().permitAll();
-      })
-      // .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
-      .build();
+        .csrf(csrf -> csrf.disable())
+
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(http -> {
+          http.requestMatchers("/api/v0/*/get/**", "api/v0/*/delete/**", "api/v0/*/updateById/**").hasRole("ADMIN");
+          http.requestMatchers("/api/v0/*/post/new").hasAnyRole("ADMIN", "USER");
+          http.anyRequest().authenticated();
+        })
+        .addFilterBefore(new JwtTokenValidator(jwtUtils),
+        BasicAuthenticationFilter.class)
+        .build();
 
   }
 
-//   @Bean
-//   PasswordEncoder passwordEncoder() {
-//     return new BCryptPasswordEncoder();
-//   }
+  @Bean
+  PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-//   // @Bean
-//   // UserDetailsService userDetailsService() {
-//   //   return new UserDetailsServiceImpl();
-//   // }
+  @Bean
+  UserDetailsService userDetailsService() {
+  return new UserDetailServiceImpl();
+  }
 
-//   @Bean
-//   AuthenticationProvider authenticationProvider(PasswordEncoder passwordEncoder) {
-//     DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//     authenticationProvider.setPasswordEncoder(passwordEncoder);
-//     // authenticationProvider.setUserDetailsService(userDetailsService);
-//     return authenticationProvider;
-//   }
+  @Bean
+  AuthenticationProvider authenticationProvider(PasswordEncoder
+  passwordEncoder, UserDetailsService userDetailsService) {
+  DaoAuthenticationProvider authenticationProvider = new
+  DaoAuthenticationProvider();
+  authenticationProvider.setPasswordEncoder(passwordEncoder);
+  authenticationProvider.setUserDetailsService(userDetailsService);
+  return authenticationProvider;
+  }
 }

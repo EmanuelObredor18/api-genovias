@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.globalvia.genovias.api.auth.model.UserEntity;
 import com.globalvia.genovias.api.models.base.Copyable;
 import com.globalvia.genovias.api.models.base.Identificable;
 
@@ -33,7 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class ReporteAccidente implements Identificable<Long>, Copyable<ReporteAccidente> {
+public class ReporteAccidente implements Identificable<Long>, Copyable<ReporteAccidente, Long> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +57,7 @@ public class ReporteAccidente implements Identificable<Long>, Copyable<ReporteAc
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(nullable = false)
-  private UserEntity responsable;
+  private Responsable responsable;
 
   @Override
   public ReporteAccidente copyWith(ReporteAccidente copy) {
@@ -69,8 +68,14 @@ public class ReporteAccidente implements Identificable<Long>, Copyable<ReporteAc
             : this.getVehiculos())
         .direccion(copy.getDireccion() != null ? copy.direccion : this.direccion)
         .fecha(copy.getFecha() != null ? copy.fecha : this.fecha)
-        .tipoAccidente(tipoAccidente.copyWith(tipoAccidente))
+        .tipoAccidente(copy.getTipoAccidente() != null ? copy.tipoAccidente.copyWith(copy.tipoAccidente) : this.tipoAccidente)
+        .responsable(copy.getResponsable() != null ? copy.responsable.copyWith(copy.responsable) : this.responsable)
         .build();
+  }
+
+  @Override
+  public ReporteAccidente copyId(Long id) {
+    return copyWith(ReporteAccidente.builder().id(id).build());
   }
 
 }

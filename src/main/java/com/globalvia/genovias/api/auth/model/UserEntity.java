@@ -1,99 +1,43 @@
 package com.globalvia.genovias.api.auth.model;
 
-import java.util.Collection;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.globalvia.genovias.api.models.base.Copyable;
-import com.globalvia.genovias.api.models.base.Identificable;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Entity
-@Table(name = "USERS")
+@Setter
+@Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Data
-public class UserEntity implements UserDetails, Identificable<String>, Copyable<UserEntity> {
+@Entity
+@Table(name = "USERS")
+public class UserEntity {
 
-  @Id
-  @Column(length = 25)
-  private String username;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @Column(nullable = false, length = 25)
-  private String password;
+    @Column(unique = true, nullable = false, length = 20)
+    private String username;
 
-  @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(
-    name = "user_roles", 
-    joinColumns = @JoinColumn(nullable = false, name = "user_id"), 
-    inverseJoinColumns = @JoinColumn(nullable = false, name = "role_id")
-  )
-  @Builder.Default
-  private Set<RoleEntity> roles = new HashSet<>();
+    @Column(nullable = false, length = 100)
+    private String password;
 
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
-  }
+    @Column(name = "is_enabled")
+    private boolean isEnabled;
 
-  @Override
-  public String getPassword() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
-  }
+    @Column(name = "account_No_Expired")
+    private boolean accountNoExpired;
 
-  @Override
-  public String getUsername() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
-  }
+    @Column(name = "account_No_Locked")
+    private boolean accountNoLocked;
 
-  @Override
-  public boolean isAccountNonExpired() {
-    // TODO Auto-generated method stub
-    return UserDetails.super.isAccountNonExpired();
-  }
+    @Column(name = "credential_No_Expired")
+    private boolean credentialNoExpired;
 
-  @Override
-  public boolean isAccountNonLocked() {
-    // TODO Auto-generated method stub
-    return UserDetails.super.isAccountNonLocked();
-  }
-
-
-  @Override
-  public boolean isEnabled() {
-    // TODO Auto-generated method stub
-    return UserDetails.super.isEnabled();
-  }
-
-  @Override
-  public UserEntity copyWith(UserEntity copy) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'copyWith'");
-  }
-
-  @Override
-  public String getId() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getId'");
-  }
-
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleEntity> roles = new HashSet<>();
 }

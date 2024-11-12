@@ -1,44 +1,24 @@
 package com.globalvia.genovias.api.validator;
 
-import java.time.LocalDateTime;
-
 import org.springframework.stereotype.Component;
 
-import com.globalvia.genovias.api.exceptions.EntityFoundException;
-import com.globalvia.genovias.api.models.entities.Direccion;
 import com.globalvia.genovias.api.models.entities.ReporteAccidente;
 import com.globalvia.genovias.api.repositories.ReporteAccidenteRepository;
-import com.globalvia.genovias.api.validator.base.Validator;
+import com.globalvia.genovias.api.validator.base.ReporteValidator;
 
 @Component
-public class ReporteAccidenteValidator {
+public class ReporteAccidenteValidator extends ReporteValidator<ReporteAccidente, Long> {
 
-  private final ReporteAccidenteRepository repository;
-  private final Validator<ReporteAccidente, Long> validator;
-  private final Validator<Direccion, Byte> direccionValidator;
-
-  public ReporteAccidenteValidator(
-    ReporteAccidenteRepository repository, 
-    Validator<ReporteAccidente, Long> validator,
-    Validator<Direccion, Byte> direccionValidator) {
-    // super(repository);
-    this.repository = repository;
-    this.validator = validator;
-    this.direccionValidator = direccionValidator;
+  public ReporteAccidenteValidator(ReporteAccidenteRepository repository) {
+    super(repository);
   }
 
-  private void validateFecha(LocalDateTime fecha) {
-
-    if (repository.existsByFecha(fecha)) {
-      throw new EntityFoundException("Ya existe un reporte de accidente con la fecha dada");
-    }
-
+  @Override
+  public void addCustomValidations(ReporteAccidente reporteAccidente, boolean isNew) {
+    // Aquí puedes agregar validaciones específicas para ReporteAccidente si es necesario
   }
 
-  public Validator<ReporteAccidente, Long> buildValidator(ReporteAccidente reporteAccidente) {
-    return validator
-      .addValidation(() -> validateFecha(reporteAccidente.getFecha()))
-      .addValidation(() -> direccionValidator.validateExistence(reporteAccidente.getDireccion().getId(), false));
+  public void buildValidator(ReporteAccidente reporteAccidente, boolean isNew) {
+    super.buildValidator(reporteAccidente, reporteAccidente.getFecha(), isNew);
   }
-
 }

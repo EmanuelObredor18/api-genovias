@@ -37,4 +37,10 @@ public class ReporteAccidenteDTO implements Identificable<Long>{
   
   @NotNull
   private Byte direccionId;
+
+  @NotNull
+  private Short responsableId;
+
+  @NotNull
+  private Short tipoAccidenteId;
 }

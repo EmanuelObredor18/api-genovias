@@ -6,26 +6,26 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
-@Entity
-@Table(name = "ROLES", uniqueConstraints = @UniqueConstraint(columnNames = "nombre"))
+@Setter
+@Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@ToString
-@EqualsAndHashCode
+@Entity
+@Table(name = "ROLES")
 public class RoleEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @Column(nullable = false, length = 15)
-  private String nombre;
+    @Column(name = "role_name")
+    private String roleName;
+
 }

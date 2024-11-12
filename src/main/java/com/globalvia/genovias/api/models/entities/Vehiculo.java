@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class Vehiculo implements Identificable<String>, Copyable<Vehiculo> {
+public class Vehiculo implements Identificable<String>, Copyable<Vehiculo, String> {
   
   @Id
   @Column(nullable = false, length = 7)
@@ -49,6 +49,11 @@ public class Vehiculo implements Identificable<String>, Copyable<Vehiculo> {
         .placa(copy.placa != null ? copy.placa : this.placa)
         .usuarioConductor(copy.usuarioConductor != null ? copy.usuarioConductor.copyWith(copy.usuarioConductor) : this.usuarioConductor)
         .build();
+  }
+
+  @Override
+  public Vehiculo copyId(String id) {
+    return copyWith(Vehiculo.builder().placa(id).build());
   }
 
 }

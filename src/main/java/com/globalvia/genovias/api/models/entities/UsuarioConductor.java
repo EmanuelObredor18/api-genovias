@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class UsuarioConductor implements Identificable<Long>, Copyable<UsuarioConductor> {
+public class UsuarioConductor implements Identificable<Long>, Copyable<UsuarioConductor, Long> {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,5 +44,10 @@ public class UsuarioConductor implements Identificable<Long>, Copyable<UsuarioCo
       .apellido(copy.apellido != null ? copy.apellido : this.apellido)
       .nombre(copy.nombre != null ? copy.nombre : this.nombre)
       .build();
+  }
+
+  @Override
+  public UsuarioConductor copyId(Long id) {
+    return copyWith(UsuarioConductor.builder().id(id).build());
   }
 }

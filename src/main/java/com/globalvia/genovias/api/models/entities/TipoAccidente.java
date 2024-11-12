@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class TipoAccidente implements Identificable<Short>, Copyable<TipoAccidente> {
+public class TipoAccidente implements Identificable<Short>, Copyable<TipoAccidente, Short> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +35,11 @@ public class TipoAccidente implements Identificable<Short>, Copyable<TipoAcciden
       .id(id != null ? this.id : copy.id)
       .tipo(tipo != null ? this.tipo : copy.tipo)
       .build();
+  }
+
+  @Override
+  public TipoAccidente copyId(Short id) {
+    return copyWith(TipoAccidente.builder().id(id).build());
   }
 
 }

@@ -10,7 +10,7 @@ package com.globalvia.genovias.api.models.base;
  * 
  * @param <T> el tipo de objeto que se va a copiar.
  */
-public interface Copyable<T> {
+public interface Copyable<T, ID> {
 
     /**
      * Crea una copia del objeto actual, aplicando los cambios especificados en el objeto
@@ -23,4 +23,6 @@ public interface Copyable<T> {
      *         objeto pasado, y los demás valores iguales al objeto original.
      */
     T copyWith(T copy);
+
+    T copyId(ID id);
 }
