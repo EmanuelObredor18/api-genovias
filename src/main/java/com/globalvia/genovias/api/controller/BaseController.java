@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.globalvia.genovias.api.models.base.Copyable;
 import com.globalvia.genovias.api.models.base.Identificable;
 import com.globalvia.genovias.api.response.ResponseBody;
-import com.globalvia.genovias.api.services.base.BaseCrudService;
+import com.globalvia.genovias.api.services.base.interfaces.BaseService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BaseController<E extends Identificable<ID> & Copyable<E, ID>, DTO extends Identificable<ID>, ID> {
 
-  private final BaseCrudService<E, DTO, ID> service;
+  private final BaseService<E, DTO, ID> service;
 
   @PostMapping("/post/new")
   public ResponseEntity<ResponseBody> postEntity(@Valid @RequestBody DTO input) {

@@ -2,6 +2,9 @@ package com.globalvia.genovias.api.models.entities;
 
 import java.time.LocalDateTime;
 
+import com.globalvia.genovias.api.models.base.Copyable;
+import com.globalvia.genovias.api.models.base.Identificable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,7 +25,7 @@ import lombok.Data;
 @NoArgsConstructor
 @Builder
 @Data
-public class ReporteAuxilioVial {
+public class ReporteAuxilioVial implements Identificable<Long>, Copyable<ReporteAuxilioVial, Long> {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,5 +42,24 @@ public class ReporteAuxilioVial {
   @JoinColumn(nullable = false)
   private Direccion direccion;
 
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(nullable = false)
+  private Responsable responsable;
+
+  @Override
+  public ReporteAuxilioVial copyWith(ReporteAuxilioVial copy) {
+    return ReporteAuxilioVial.builder()
+      .id(copy.id != null ? copy.id : id)
+      .fecha(copy.fecha != null ? copy.fecha : fecha)
+      .vehiculo(copy.vehiculo != null ? vehiculo.copyWith(copy.vehiculo) : vehiculo)
+      .direccion(copy.direccion != null ? direccion.copyWith(copy.direccion) : direccion)
+      .responsable(copy.responsable != null ? responsable.copyWith(copy.responsable) : responsable)
+      .build();
+  }
+
+  @Override
+  public ReporteAuxilioVial copyId(Long id) {
+    return copyWith(ReporteAuxilioVial.builder().id(id).build());
+  }
   
 }

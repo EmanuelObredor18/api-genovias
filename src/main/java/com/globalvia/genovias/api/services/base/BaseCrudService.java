@@ -14,7 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.globalvia.genovias.api.exceptions.EntityFoundException;
 import com.globalvia.genovias.api.exceptions.EntityNotFoundException;
@@ -23,9 +22,10 @@ import com.globalvia.genovias.api.models.base.Identificable;
 import com.globalvia.genovias.api.models.factory.EntityFactory;
 import com.globalvia.genovias.api.response.ResponseBody;
 import com.globalvia.genovias.api.response.ResponseStatus;
+import com.globalvia.genovias.api.services.base.interfaces.BaseService;
 import com.globalvia.genovias.api.services.dto.DTOProcessService;
 
-public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO extends Identificable<ID>, ID> {
+public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO extends Identificable<ID>, ID> implements BaseService<E, DTO, ID> {
 
   protected final ResponseBody successCreatedResponse = new ResponseBody(ResponseStatus.SUCCESS, HttpStatus.CREATED.value(), "Entidad creada exitosamente");
 
@@ -61,8 +61,7 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
         .orElseThrow(() -> new EntityNotFoundException(entityClass.getSimpleName() + " no encontrado(a) en la base de datos"));
   }
 
-  // Optimización en la creación de la entidad
-  @Transactional
+  @Override
   public ResponseEntity<ResponseBody> postEntity(DTO input) throws EntityFoundException {
     if (input.getId() != null && repository.existsById(input.getId())) {
       throw new EntityFoundException("Entidad encontrada en la base de datos. Editarla por este medio no está disponible");
@@ -77,7 +76,7 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
   // Optimización en la actualización de la entidad
 
   // TODO: agregar proceso de DTO
-  @Transactional
+  @Override
   public ResponseEntity<ResponseBody> updateEntityById(DTO input, ID id) throws EntityNotFoundException {
     if (!repository.existsById(id)) {
       throw new EntityNotFoundException("Error de validación. Entidad con id " + id + " no encontrado(a) en la base de datos");
@@ -91,7 +90,7 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
   }
 
   // Método para eliminar entidad por ID
-  @Transactional
+  @Override
   public ResponseEntity<String> deleteEntityById(ID id) {
     E entity = findEntityOrThrow(id);
     dtoProcessService.deleteProcess(modelMapper.map(entity, dtoClass));
@@ -100,6 +99,7 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
   }
 
   // Optimización en la obtención de todas las entidades con paginación y ordenamiento
+  @Override
   public ResponseEntity<Map<String, Object>> getAllEntities(int size, int page, String sortDirection, String sortBy) {
     Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), sortBy));
 
@@ -113,12 +113,14 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
   }
 
   // Método para encontrar una entidad por ID
+  @Override
   public ResponseEntity<E> findEntityById(ID id) {
     E entity = findEntityOrThrow(id);
     return ResponseEntity.ok(entity);
   }
 
   // Optimización para buscar varias entidades por un conjunto de IDs
+  @Override
   public ResponseEntity<Set<E>> findAllEntitiesById(Collection<ID> ids) {
     // Obtener las entidades encontradas por sus IDs
     Set<E> entities = repository.findAllById(ids).stream().collect(Collectors.toSet());

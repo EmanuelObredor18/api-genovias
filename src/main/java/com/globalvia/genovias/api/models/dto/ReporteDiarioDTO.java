@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.globalvia.genovias.api.models.base.Dateable;
 import com.globalvia.genovias.api.models.base.Identificable;
 
 import jakarta.validation.constraints.Min;
@@ -19,7 +20,7 @@ import lombok.Data;
 @NoArgsConstructor
 @Builder
 @Data
-public class ReporteDiarioDTO implements Identificable<Long> {
+public class ReporteDiarioDTO implements Identificable<Long>, Dateable {
   
   private Long id;
 

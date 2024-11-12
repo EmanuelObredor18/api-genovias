@@ -14,13 +14,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 @Entity
-@Table(name = "REPORTES_DIARIOS")
+@Table(name = "REPORTES_DIARIOS", uniqueConstraints = @UniqueConstraint(columnNames = "fecha"))
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

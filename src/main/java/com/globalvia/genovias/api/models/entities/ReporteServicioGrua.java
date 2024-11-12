@@ -38,11 +38,16 @@ public class ReporteServicioGrua implements Identificable<Long>, Copyable<Report
   @JoinColumn(nullable = false)
   private Vehiculo vehiculo;
 
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(nullable = false)
+  private SitioDesenganche sitioDesenganche;
+
   @Override
   public ReporteServicioGrua copyWith(ReporteServicioGrua copy) {
     return ReporteServicioGrua.builder()
       .id(copy.id != null ? copy.id : this.id)
       .vehiculo(copy.vehiculo != null ? copy.vehiculo.copyWith(copy.vehiculo) : vehiculo)
+      .sitioDesenganche(copy.sitioDesenganche != null ? sitioDesenganche.copyWith(copy.sitioDesenganche) : sitioDesenganche)
       .fecha(copy.fecha != null ? copy.fecha : this.fecha)
       .build();
   }

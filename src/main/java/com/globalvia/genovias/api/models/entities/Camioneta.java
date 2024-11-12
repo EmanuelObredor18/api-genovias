@@ -1,5 +1,6 @@
 package com.globalvia.genovias.api.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.globalvia.genovias.api.models.base.Copyable;
 import com.globalvia.genovias.api.models.base.Identificable;
 
@@ -40,6 +41,7 @@ public class Camioneta implements Identificable<String>, Copyable<Camioneta, Str
     return copyWith(Camioneta.builder().placa(id).build());
   }
 
+  @JsonIgnore
   @Override
   public String getId() {
     return this.placa;

@@ -22,6 +22,10 @@ import com.globalvia.genovias.api.auth.model.UserEntity;
 import com.globalvia.genovias.api.auth.repository.RoleRepository;
 import com.globalvia.genovias.api.auth.repository.UserRepository;
 import com.globalvia.genovias.api.auth.util.JwtUtils;
+import com.globalvia.genovias.api.models.entities.Responsable;
+import com.globalvia.genovias.api.repositories.ResponsableRepository;
+
+import jakarta.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +47,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private ResponsableRepository responsableRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) {
 
@@ -55,6 +62,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         return new User(userEntity.getUsername(), userEntity.getPassword(), userEntity.isEnabled(), userEntity.isAccountNoExpired(), userEntity.isCredentialNoExpired(), userEntity.isAccountNoLocked(), authorityList);
     }
 
+    // @Transactional
     public AuthResponse createUser(AuthCreateUserRequest createRoleRequest) {
 
         String username = createRoleRequest.username();
@@ -75,6 +83,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         userSaved.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRoleName()))));
 
+        if (userSaved.getRoles().stream().filter(role -> role.getRoleName().equals("ADMIN")).toList().size() != 0) {
+            responsableRepository.save(Responsable.builder().nombre(createRoleRequest.nombre()).apellido(createRoleRequest.apellido()).build());
+        }
+        
         SecurityContext securityContextHolder = SecurityContextHolder.getContext();
         Authentication authentication = new UsernamePasswordAuthenticationToken(userSaved, null, authorities);
 

@@ -1,6 +1,7 @@
 package com.globalvia.genovias.api.services.dto;
 
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,7 @@ import com.globalvia.genovias.api.models.entities.ReporteAccidente;
 import com.globalvia.genovias.api.models.entities.Responsable;
 import com.globalvia.genovias.api.models.entities.TipoAccidente;
 import com.globalvia.genovias.api.models.entities.Vehiculo;
-import com.globalvia.genovias.api.services.base.BaseCrudService;
-import com.globalvia.genovias.api.validator.ReporteAccidenteValidator;
+import com.globalvia.genovias.api.services.base.interfaces.BaseService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,35 +24,52 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReporteAccidenteDTOProcess implements DTOProcessService<ReporteAccidente, ReporteAccidenteDTO> {
 
-  private final BaseCrudService<Responsable, ResponsableDTO, Short> responsableCrudService;
-  private final BaseCrudService<Vehiculo, VehiculoDTO, String> vehiculoCrudService;
-  private final BaseCrudService<Direccion, DireccionDTO, Byte> direccionCrudService;
-  private final BaseCrudService<TipoAccidente, TipoAccidenteDTO, Short> tipoCrudService;
+  private final BaseService<Responsable, ResponsableDTO, Short> responsableCrudService;
+  private final BaseService<Vehiculo, VehiculoDTO, String> vehiculoCrudService;
+  private final BaseService<Direccion, DireccionDTO, Byte> direccionCrudService;
+  private final BaseService<TipoAccidente, TipoAccidenteDTO, Short> tipoCrudService;
 
   private final ModelMapper modelMapper;
-  private final ReporteAccidenteValidator validator;
 
   @Override
   public ReporteAccidente postProcess(ReporteAccidenteDTO input, boolean isNew) {
-    Set<Vehiculo> vehiculos = vehiculoCrudService.findAllEntitiesById(input.getVehiculosPlacas()).getBody();
-    Responsable responsable = responsableCrudService.findEntityById(input.getResponsableId()).getBody();
-    Direccion direccion = direccionCrudService.findEntityById(input.getDireccionId()).getBody();
-    TipoAccidente tipoAccidente = tipoCrudService.findEntityById(input.getTipoAccidenteId()).getBody();
+    // Ejecutar llamadas a servicios en paralelo utilizando CompletableFuture
+    CompletableFuture<Set<Vehiculo>> vehiculosFuture = CompletableFuture.supplyAsync(() -> 
+      vehiculoCrudService.findAllEntitiesById(input.getVehiculosPlacas()).getBody()
+    );
+    
+    CompletableFuture<Responsable> responsableFuture = CompletableFuture.supplyAsync(() -> 
+      responsableCrudService.findEntityById(input.getResponsableId()).getBody()
+    );
+    
+    CompletableFuture<Direccion> direccionFuture = CompletableFuture.supplyAsync(() -> 
+      direccionCrudService.findEntityById(input.getDireccionId()).getBody()
+    );
+    
+    CompletableFuture<TipoAccidente> tipoAccidenteFuture = CompletableFuture.supplyAsync(() -> 
+      tipoCrudService.findEntityById(input.getTipoAccidenteId()).getBody()
+    );
 
+    // Esperar a que todas las llamadas completen
+    CompletableFuture.allOf(vehiculosFuture, responsableFuture, direccionFuture, tipoAccidenteFuture).join();
+
+    // Obtener resultados de las llamadas asincrónicas
+    Set<Vehiculo> vehiculos = vehiculosFuture.join();
+    Responsable responsable = responsableFuture.join();
+    Direccion direccion = direccionFuture.join();
+    TipoAccidente tipoAccidente = tipoAccidenteFuture.join();
+
+    // Mapea el DTO a la entidad
     ReporteAccidente reporteAccidente = modelMapper.map(input, ReporteAccidente.class);
-
-    validator.buildValidator(reporteAccidente, isNew);
-
-    return reporteAccidente
-        .copyWith(
+    
+    // Usa el método copyWith para establecer las entidades relacionadas
+    return reporteAccidente.copyWith(
           ReporteAccidente.builder()
           .vehiculos(vehiculos)
           .responsable(responsable)
           .direccion(direccion)
           .tipoAccidente(tipoAccidente)
           .build());
-    
-
   }
 
 }

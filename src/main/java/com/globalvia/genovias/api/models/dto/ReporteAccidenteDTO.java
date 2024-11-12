@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.globalvia.genovias.api.models.base.Dateable;
 import com.globalvia.genovias.api.models.base.Identificable;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class ReporteAccidenteDTO implements Identificable<Long>{
+public class ReporteAccidenteDTO implements Identificable<Long>, Dateable {
   
   @Schema(description = "ID of the entity", accessMode = Schema.AccessMode.READ_ONLY)
   private Long id;

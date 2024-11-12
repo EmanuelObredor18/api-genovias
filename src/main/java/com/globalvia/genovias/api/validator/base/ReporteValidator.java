@@ -8,7 +8,7 @@ import com.globalvia.genovias.api.repositories.ReporteRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class ReporteValidator<E, ID> extends Validator {
+public class ReporteValidator<E, ID> extends Validator {
 
   private final ReporteRepository<E, ID> repository;
 
@@ -25,6 +25,4 @@ public abstract class ReporteValidator<E, ID> extends Validator {
     }
   }
 
-  // Método abstracto para agregar validaciones específicas de cada entidad
-  protected abstract void addCustomValidations(E entity, boolean isNew);
 }
