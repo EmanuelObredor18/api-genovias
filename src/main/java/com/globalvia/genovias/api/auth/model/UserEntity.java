@@ -6,6 +6,9 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.globalvia.genovias.api.models.base.Copyable;
+import com.globalvia.genovias.api.models.base.Identificable;
+
 @Setter
 @Getter
 @Builder
@@ -13,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "USERS")
-public class UserEntity {
+public class UserEntity implements Identificable<Long>, Copyable<UserEntity, Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +43,16 @@ public class UserEntity {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
+
+    @Override
+    public UserEntity copyWith(UserEntity copy) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'copyWith'");
+    }
+
+    @Override
+    public UserEntity copyId(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'copyId'");
+    }
 }

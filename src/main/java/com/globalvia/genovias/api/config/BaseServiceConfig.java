@@ -121,4 +121,5 @@ public class BaseServiceConfig {
       ReporteValidator<ReporteDiario, Long> validator) {
     return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, validator);
   }
+
 }

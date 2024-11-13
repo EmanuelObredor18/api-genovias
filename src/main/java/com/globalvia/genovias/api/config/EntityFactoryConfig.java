@@ -3,6 +3,8 @@ package com.globalvia.genovias.api.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.globalvia.genovias.api.auth.model.UserEntity;
+import com.globalvia.genovias.api.auth.repository.UserRepository;
 import com.globalvia.genovias.api.models.entities.Camioneta;
 import com.globalvia.genovias.api.models.entities.Direccion;
 import com.globalvia.genovias.api.models.entities.ReporteAccidente;
@@ -88,7 +90,12 @@ public class EntityFactoryConfig {
   }
 
   @Bean
-  EntityFactory<SitioDesenganche, Short> sitioDesenganche(SitioDesengancheRepository repository) {
+  EntityFactory<SitioDesenganche, Short> sitioDesengancheFactory(SitioDesengancheRepository repository) {
     return new EntityFactory<>(repository, SitioDesenganche.class);
+  }
+
+  @Bean
+  EntityFactory<UserEntity, Long> userEntityFactory(UserRepository repository) {
+    return new EntityFactory<>(repository, null);
   }
 }

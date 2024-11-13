@@ -1,6 +1,7 @@
 package com.globalvia.genovias.api.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,8 +23,11 @@ import com.globalvia.genovias.api.auth.model.UserEntity;
 import com.globalvia.genovias.api.auth.repository.RoleRepository;
 import com.globalvia.genovias.api.auth.repository.UserRepository;
 import com.globalvia.genovias.api.auth.util.JwtUtils;
+import com.globalvia.genovias.api.models.dto.ResponsableDTO;
 import com.globalvia.genovias.api.models.entities.Responsable;
 import com.globalvia.genovias.api.repositories.ResponsableRepository;
+import com.globalvia.genovias.api.services.base.BaseCrudService;
+import com.globalvia.genovias.api.services.base.interfaces.BaseService;
 
 import jakarta.transaction.Transactional;
 
@@ -48,7 +52,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private RoleRepository roleRepository;
 
     @Autowired
-    private ResponsableRepository responsableRepository;
+    private BaseService<Responsable, ResponsableDTO, Short> responsableService;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -84,7 +88,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         userSaved.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRoleName()))));
 
         if (userSaved.getRoles().stream().filter(role -> role.getRoleName().equals("ADMIN")).toList().size() != 0) {
-            responsableRepository.save(Responsable.builder().nombre(createRoleRequest.nombre()).apellido(createRoleRequest.apellido()).build());
+            responsableService.postEntity(ResponsableDTO.builder().nombre(createRoleRequest.nombre()).apellido(createRoleRequest.apellido()).userEntityId(userSaved.getId()).build());
         }
         
         SecurityContext securityContextHolder = SecurityContextHolder.getContext();

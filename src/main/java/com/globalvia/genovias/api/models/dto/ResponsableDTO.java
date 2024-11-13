@@ -18,4 +18,6 @@ public class ResponsableDTO implements Identificable<Short> {
   private String nombre;
 
   private String apellido;
+
+  private Long userEntityId;
 }
