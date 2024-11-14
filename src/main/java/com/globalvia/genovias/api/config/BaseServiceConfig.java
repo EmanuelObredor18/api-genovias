@@ -119,7 +119,7 @@ public class BaseServiceConfig {
       EntityFactory<ReporteDiario, Long> entityFactory,
       DTOProcessService<ReporteDiario, ReporteDiarioDTO> dtoProcessService,
       ReporteValidator<ReporteDiario, Long> validator) {
-    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, validator);
+    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, ReporteDiarioDTO.class, validator);
   }
 
 }

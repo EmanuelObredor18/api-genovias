@@ -87,7 +87,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         userSaved.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRoleName()))));
 
-        if (userSaved.getRoles().stream().filter(role -> role.getRoleName().equals("ADMIN")).toList().size() != 0) {
+        if (userSaved.getRoles().stream().filter(role -> !role.getRoleName().equals("ADMIN")).toList().size() != 0) {
             responsableService.postEntity(ResponsableDTO.builder().nombre(createRoleRequest.nombre()).apellido(createRoleRequest.apellido()).userEntityId(userSaved.getId()).build());
         }
         
