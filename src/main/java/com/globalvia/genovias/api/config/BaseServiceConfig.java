@@ -43,51 +43,51 @@ public class BaseServiceConfig {
       DTOProcessService<ReporteAccidente, ReporteAccidenteDTO> dtoProcessService,
       ReporteValidator<ReporteAccidente, Long> validator) {
 
-    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, validator);
+    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, ReporteAccidenteDTO.class, validator);
   }
 
   @Bean
   BaseService<Vehiculo, VehiculoDTO, String> vehiculoBaseService(
       EntityFactory<Vehiculo, String> entityFactory,
       DTOProcessService<Vehiculo, VehiculoDTO> dtoProcessService) {
-    return new BaseCrudService<>(entityFactory, dtoProcessService);
+    return new BaseCrudService<>(entityFactory, dtoProcessService, VehiculoDTO.class);
   }
 
   @Bean
   BaseService<SitioDesenganche, SitioDesengancheDTO, Short> sitioDesengancheBaseService(EntityFactory<SitioDesenganche, Short> entityFactory) {
-    return new BaseCrudService<>(entityFactory, null);
+    return new BaseCrudService<>(entityFactory, null, SitioDesengancheDTO.class);
   }
 
   @Bean
   BaseService<UsuarioConductor, UsuarioConductorDTO, Long> usuarioConductorBaseService(
       EntityFactory<UsuarioConductor, Long> entityFactory) {
-    return new BaseCrudService<>(entityFactory, null);
+    return new BaseCrudService<>(entityFactory, null, UsuarioConductorDTO.class);
   }
 
   // TODO: Agregar procesador de dto
   @Bean
   BaseService<TipoAccidente, TipoAccidenteDTO, Short> tipoAccidenteBaseService(
       EntityFactory<TipoAccidente, Short> entityFactory) {
-    return new BaseCrudService<>(entityFactory, null);
+    return new BaseCrudService<>(entityFactory, null, TipoAccidenteDTO.class);
   }
 
   // TODO: Agregar procesador de dto
   @Bean
   BaseService<Camioneta, CamionetaDTO, String> camionetaBaseService(
       EntityFactory<Camioneta, String> entityFactory) {
-    return new BaseCrudService<>(entityFactory, null);
+    return new BaseCrudService<>(entityFactory, null, CamionetaDTO.class);
   }
 
   @Bean
   BaseService<Direccion, DireccionDTO, Byte> direccionBaseService(
       EntityFactory<Direccion, Byte> entityFactory) {
-    return new BaseCrudService<>(entityFactory, null);
+    return new BaseCrudService<>(entityFactory, null, DireccionDTO.class);
   }
 
   @Bean
   BaseService<Responsable, ResponsableDTO, Short> responsableBaseService(
       EntityFactory<Responsable, Short> entityFactory) {
-    return new BaseCrudService<>(entityFactory, null);
+    return new BaseCrudService<>(entityFactory, null, ResponsableDTO.class);
   }
 
   @Bean
@@ -95,7 +95,7 @@ public class BaseServiceConfig {
       EntityFactory<ReporteServicioGrua, Long> entityFactory,
       DTOProcessService<ReporteServicioGrua, ReporteServicioGruaDTO> dtoProcessService,
       ReporteValidator<ReporteServicioGrua, Long> validator) {
-    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, validator);
+    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, ReporteServicioGruaDTO.class, validator);
   }
 
   @Bean
@@ -103,7 +103,7 @@ public class BaseServiceConfig {
       EntityFactory<ReporteServicioAmbulancia, Long> entityFactory,
       DTOProcessService<ReporteServicioAmbulancia, ReporteServicioAmbulanciaDTO> dtoProcessService,
       ReporteValidator<ReporteServicioAmbulancia,Long> validator) {
-    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, validator);
+    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, ReporteServicioAmbulanciaDTO.class, validator);
   }
 
   @Bean
@@ -111,7 +111,7 @@ public class BaseServiceConfig {
       EntityFactory<ReporteAuxilioVial, Long> entityFactory,
       DTOProcessService<ReporteAuxilioVial, ReporteAuxilioVialDTO> dtoProcessService,
       ReporteValidator<ReporteAuxilioVial, Long> validator) {
-    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, validator);
+    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, ReporteAuxilioVialDTO.class, validator);
   }
 
   @Bean
@@ -121,5 +121,4 @@ public class BaseServiceConfig {
       ReporteValidator<ReporteDiario, Long> validator) {
     return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, ReporteDiarioDTO.class, validator);
   }
-
 }

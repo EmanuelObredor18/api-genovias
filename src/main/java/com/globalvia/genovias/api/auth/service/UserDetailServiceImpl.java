@@ -66,38 +66,70 @@ public class UserDetailServiceImpl implements UserDetailsService {
         return new User(userEntity.getUsername(), userEntity.getPassword(), userEntity.isEnabled(), userEntity.isAccountNoExpired(), userEntity.isCredentialNoExpired(), userEntity.isAccountNoLocked(), authorityList);
     }
 
-    // @Transactional
+    @Transactional
     public AuthResponse createUser(AuthCreateUserRequest createRoleRequest) {
 
         String username = createRoleRequest.username();
         String password = createRoleRequest.password();
         List<String> rolesRequest = createRoleRequest.roleRequest().roleListName();
-
+    
+        // Obtener roles desde la base de datos
         Set<RoleEntity> roleEntityList = roleRepository.findAllByRoleNameIn(rolesRequest).stream().collect(Collectors.toSet());
-
+    
         if (roleEntityList.isEmpty()) {
-            throw new IllegalArgumentException("The roles specified does not exist.");
+            throw new IllegalArgumentException("The roles specified do not exist.");
         }
-
-        UserEntity userEntity = UserEntity.builder().username(username).password(passwordEncoder.encode(password)).roles(roleEntityList).isEnabled(true).accountNoLocked(true).accountNoExpired(true).credentialNoExpired(true).build();
-
+    
+        // Crear la entidad UserEntity
+        UserEntity userEntity = UserEntity.builder()
+                .username(username)
+                .password(passwordEncoder.encode(password))
+                .roles(roleEntityList)
+                .isEnabled(true)
+                .accountNoLocked(true)
+                .accountNoExpired(true)
+                .credentialNoExpired(true)
+                .build();
+    
+        // Guardar el usuario en la base de datos
         UserEntity userSaved = userRepository.save(userEntity);
-
+    
+        // Crear las autoridades (roles)
         ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
-        userSaved.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRoleName()))));
-
-        if (userSaved.getRoles().stream().filter(role -> !role.getRoleName().equals("ADMIN")).toList().size() != 0) {
-            responsableService.postEntity(ResponsableDTO.builder().nombre(createRoleRequest.nombre()).apellido(createRoleRequest.apellido()).userEntityId(userSaved.getId()).build());
+        userSaved.getRoles().forEach(role -> 
+            authorities.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRoleName())))
+        );
+    
+        // Crear un Responsable si el usuario no tiene el rol "ADMIN"
+        if (userSaved.getRoles().stream().noneMatch(role -> role.getRoleName().equals("ADMIN"))) {
+            responsableService.postEntity(
+                ResponsableDTO.builder()
+                    .nombre(createRoleRequest.nombre())
+                    .apellido(createRoleRequest.apellido())
+                    .userEntityId(userSaved.getId())
+                    .build()
+            );
         }
-        
-        SecurityContext securityContextHolder = SecurityContextHolder.getContext();
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userSaved, null, authorities);
-
+    
+        // Crear UserDetails para el usuario autenticado
+        UserDetails userDetails = new User(
+                userSaved.getUsername(),
+                userSaved.getPassword(),
+                userSaved.isEnabled(),
+                userSaved.isAccountNoExpired(),
+                userSaved.isCredentialNoExpired(),
+                userSaved.isAccountNoLocked(),
+                authorities
+        );
+    
+        // Crear Authentication con UserDetails
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+    
+        // Generar el token
         String accessToken = jwtUtils.createToken(authentication);
-
-        AuthResponse authResponse = new AuthResponse(username, "User created successfully", accessToken, true);
-        return authResponse;
+    
+        // Crear y retornar la respuesta
+        return new AuthResponse(username, "User created successfully", accessToken, true);
     }
 
     public AuthResponse loginUser(AuthLoginRequest authLoginRequest) {

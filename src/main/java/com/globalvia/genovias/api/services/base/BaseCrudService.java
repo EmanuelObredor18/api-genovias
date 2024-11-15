@@ -93,7 +93,9 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
   @Override
   public ResponseEntity<String> deleteEntityById(ID id) {
     E entity = findEntityOrThrow(id);
-    dtoProcessService.deleteProcess(modelMapper.map(entity, dtoClass));
+    if (dtoClass != null) {
+      dtoProcessService.deleteProcess(modelMapper.map(entity, dtoClass));
+    }
     repository.delete(entity);
     return ResponseEntity.noContent().build();
   }
@@ -107,7 +109,7 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
     Map<String, Object> response = new LinkedHashMap<>();
     response.put("totalElements", pageResponse.getTotalElements());
     response.put("totalPages", pageResponse.getTotalPages());
-    response.put("content", pageResponse.getContent());
+    response.put("content", pageResponse.getContent().stream().map(e -> modelMapper.map(e, dtoClass)).collect(Collectors.toSet()));
 
     return ResponseEntity.ok(response);
   }
