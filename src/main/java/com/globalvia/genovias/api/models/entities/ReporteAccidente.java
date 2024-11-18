@@ -1,6 +1,7 @@
 package com.globalvia.genovias.api.models.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,7 +28,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "REPORTES_ACCIDENTES", uniqueConstraints = @UniqueConstraint(columnNames = "fecha"))
+@Table(name = "REPORTES_ACCIDENTES", uniqueConstraints = @UniqueConstraint(columnNames = {"fecha", "hora"}))
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -40,7 +41,10 @@ public class ReporteAccidente implements Identificable<Long>, Copyable<ReporteAc
   private Long id;
 
   @Column(nullable = false)
-  private LocalDateTime fecha;
+  private LocalDate fecha;
+
+  @Column(nullable = false)
+  private LocalTime hora;
 
   @Builder.Default
   @ManyToMany(fetch = FetchType.EAGER)
@@ -63,11 +67,12 @@ public class ReporteAccidente implements Identificable<Long>, Copyable<ReporteAc
   public ReporteAccidente copyWith(ReporteAccidente copy) {
     return ReporteAccidente.builder()
         .id(copy.getId() != null ? copy.getId() : this.getId())
-        .vehiculos(copy.getVehiculos() != null && !copy.getVehiculos().isEmpty()
+        .vehiculos(copy.getVehiculos() != null && copy.getVehiculos().isEmpty()
             ? copy.vehiculos.stream().map(vehiculo -> vehiculo.copyWith(vehiculo)).collect(Collectors.toSet())
             : this.getVehiculos())
         .direccion(copy.getDireccion() != null ? copy.direccion : this.direccion)
         .fecha(copy.getFecha() != null ? copy.fecha : this.fecha)
+        .hora(copy.hora != null ? copy.hora : this.hora)
         .tipoAccidente(copy.getTipoAccidente() != null ? copy.tipoAccidente.copyWith(copy.tipoAccidente) : this.tipoAccidente)
         .responsable(copy.getResponsable() != null ? copy.responsable.copyWith(copy.responsable) : this.responsable)
         .build();

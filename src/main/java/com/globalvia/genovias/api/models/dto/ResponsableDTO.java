@@ -1,5 +1,6 @@
 package com.globalvia.genovias.api.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.globalvia.genovias.api.models.base.Identificable;
 
 import lombok.AllArgsConstructor;
@@ -19,5 +20,10 @@ public class ResponsableDTO implements Identificable<Short> {
 
   private String apellido;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
   private Long userEntityId;
+
+  @JsonProperty("userUsername")
+  private String userEntityUsername;
 }

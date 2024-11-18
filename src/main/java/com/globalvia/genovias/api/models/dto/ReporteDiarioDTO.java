@@ -1,10 +1,12 @@
 package com.globalvia.genovias.api.models.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.globalvia.genovias.api.models.base.Dateable;
 import com.globalvia.genovias.api.models.base.Identificable;
 
@@ -28,7 +30,12 @@ public class ReporteDiarioDTO implements Identificable<Long>, Dateable {
   private String camionetaPlaca;
   
   @NotNull
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private Short responsableId;
+
+  private String responsableNombre;
+
+  private String responsableApellido;
 
   @Min(value = 1)
   private int kilometrajeEntrada;
@@ -42,9 +49,14 @@ public class ReporteDiarioDTO implements Identificable<Long>, Dateable {
   @Min(value = 1)
   private int nivelCombustibleSalida;
 
-  @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-  @DateTimeFormat(pattern = "dd/MM/yyyy HH::mm:ss")
+  @JsonFormat(pattern = "dd/MM/yyyy")
+  @DateTimeFormat(pattern = "dd/MM/yyyy")
   @NotNull
-  private LocalDateTime fecha;
+  private LocalDate fecha;
+
+  @NotNull
+  @DateTimeFormat(pattern = "HH:mm:ss")
+  @JsonFormat(pattern = "HH:mm:ss")
+  private LocalTime hora;
 
 }

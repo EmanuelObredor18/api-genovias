@@ -2,6 +2,7 @@ package com.globalvia.genovias.api.services.base;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,17 +26,22 @@ import com.globalvia.genovias.api.response.ResponseStatus;
 import com.globalvia.genovias.api.services.base.interfaces.BaseService;
 import com.globalvia.genovias.api.services.dto.DTOProcessService;
 
-public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO extends Identificable<ID>, ID> implements BaseService<E, DTO, ID> {
+public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO extends Identificable<ID>, ID>
+    implements BaseService<E, DTO, ID> {
 
-  protected final ResponseBody successCreatedResponse = new ResponseBody(ResponseStatus.SUCCESS, HttpStatus.CREATED.value(), "Entidad creada exitosamente");
+  protected final ResponseBody successCreatedResponse = new ResponseBody(ResponseStatus.SUCCESS,
+      HttpStatus.CREATED.value(), "Entidad creada exitosamente");
+  protected final ResponseBody successUpdatedResponse = new ResponseBody(ResponseStatus.SUCCESS, HttpStatus.OK.value(),
+      "Entidad actualizado exitosamente");
 
   private final JpaRepository<E, ID> repository;
   private final Class<E> entityClass;
   private final Class<DTO> dtoClass;
-  private final ModelMapper modelMapper;
+  protected final ModelMapper modelMapper;
   private final DTOProcessService<E, DTO> dtoProcessService;
 
-  public BaseCrudService(EntityFactory<E, ID> entityFactory, DTOProcessService<E, DTO> dtoProcessService, Class<DTO> dtoClass) {
+  public BaseCrudService(EntityFactory<E, ID> entityFactory, DTOProcessService<E, DTO> dtoProcessService,
+      Class<DTO> dtoClass) {
     this.repository = entityFactory.getRepository();
     this.entityClass = entityFactory.getEntityClass();
     this.modelMapper = new ModelMapper();
@@ -56,21 +62,23 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
   }
 
   // Método reutilizable para buscar una entidad por ID o lanzar una excepción
-  private E findEntityOrThrow(ID id) {
+  protected E findEntityOrThrow(ID id) {
     return repository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException(entityClass.getSimpleName() + " no encontrado(a) en la base de datos"));
+        .orElseThrow(
+            () -> new EntityNotFoundException(entityClass.getSimpleName() + " no encontrado(a) en la base de datos"));
   }
 
   @Override
   public ResponseEntity<ResponseBody> postEntity(DTO input) throws EntityFoundException {
     if (input.getId() != null && repository.existsById(input.getId())) {
-      throw new EntityFoundException("Entidad encontrada en la base de datos. Editarla por este medio no está disponible");
+      throw new EntityFoundException(
+          "Entidad encontrada en la base de datos. Editarla por este medio no está disponible");
     }
 
     E entity = mapDtoToEntity(input, true);
     repository.save(entity);
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(successCreatedResponse);
+    return ResponseEntity.status(HttpStatus.CREATED).body(successUpdatedResponse);
   }
 
   // Optimización en la actualización de la entidad
@@ -79,28 +87,30 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
   @Override
   public ResponseEntity<ResponseBody> updateEntityById(DTO input, ID id) throws EntityNotFoundException {
     if (!repository.existsById(id)) {
-      throw new EntityNotFoundException("Error de validación. Entidad con id " + id + " no encontrado(a) en la base de datos");
+      throw new EntityNotFoundException(
+          "Error de validación. Entidad con id " + id + " no encontrado(a) en la base de datos");
     }
 
-    E entity = mapDtoToEntity(input, false);
-    E entityCopy = entity.copyId(id);
-    repository.save(entityCopy);
+    E existingEntity = findEntityOrThrow(id);
+    modelMapper.map(input, existingEntity); // Mapear solo los campos del DTO
+    repository.save(existingEntity);
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(successCreatedResponse);
+    return ResponseEntity.status(HttpStatus.OK).body(successCreatedResponse);
   }
 
   // Método para eliminar entidad por ID
   @Override
   public ResponseEntity<String> deleteEntityById(ID id) {
     E entity = findEntityOrThrow(id);
-    if (dtoClass != null) {
+    if (dtoProcessService != null && dtoClass != null) {
       dtoProcessService.deleteProcess(modelMapper.map(entity, dtoClass));
     }
     repository.delete(entity);
     return ResponseEntity.noContent().build();
   }
 
-  // Optimización en la obtención de todas las entidades con paginación y ordenamiento
+  // Optimización en la obtención de todas las entidades con paginación y
+  // ordenamiento
   @Override
   public ResponseEntity<Map<String, Object>> getAllEntities(int size, int page, String sortDirection, String sortBy) {
     Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), sortBy));
@@ -109,14 +119,21 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
     Map<String, Object> response = new LinkedHashMap<>();
     response.put("totalElements", pageResponse.getTotalElements());
     response.put("totalPages", pageResponse.getTotalPages());
-    response.put("content", pageResponse.getContent().stream().map(e -> modelMapper.map(e, dtoClass)).collect(Collectors.toSet()));
+    response.put("content",
+        pageResponse.getContent().stream().map(this::mapper).collect(Collectors.toCollection(LinkedHashSet::new)));
 
     return ResponseEntity.ok(response);
   }
 
   // Método para encontrar una entidad por ID
   @Override
-  public ResponseEntity<E> findEntityById(ID id) {
+  public ResponseEntity<DTO> findEntityDTOById(ID id) {
+    E entity = findEntityOrThrow(id);
+    return ResponseEntity.ok(mapper(entity));
+  }
+
+  @Override
+  public final ResponseEntity<E> findEntityById(ID id) {
     E entity = findEntityOrThrow(id);
     return ResponseEntity.ok(entity);
   }
@@ -135,10 +152,14 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
 
     // Si hay IDs que no se encontraron, lanzar una excepción
     if (!notFoundIds.isEmpty()) {
-        throw new EntityNotFoundException("No se encontraron " + entityClass.getSimpleName()+ "s con los siguientes IDs: " + notFoundIds);
+      throw new EntityNotFoundException(
+          "No se encontraron " + entityClass.getSimpleName() + "s con los siguientes IDs: " + notFoundIds);
     }
 
     return ResponseEntity.ok(entities);
   }
 
+  public DTO mapper(E entity) {
+    return modelMapper.map(entity, dtoClass);
+  }
 }

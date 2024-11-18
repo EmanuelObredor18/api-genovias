@@ -26,6 +26,8 @@ public interface BaseService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
 
   public ResponseEntity<Map<String, Object>> getAllEntities(int size, int page, String sortDirection, String sortBy);
   
+  public ResponseEntity<DTO> findEntityDTOById(ID id);
+
   public ResponseEntity<E> findEntityById(ID id);
 
   public ResponseEntity<Set<E>> findAllEntitiesById(Collection<ID> ids);

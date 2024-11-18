@@ -41,8 +41,8 @@ public class Camioneta implements Identificable<String>, Copyable<Camioneta, Str
     return copyWith(Camioneta.builder().placa(id).build());
   }
 
-  @JsonIgnore
   @Override
+  @JsonIgnore
   public String getId() {
     return this.placa;
   }

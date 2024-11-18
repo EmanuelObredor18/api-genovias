@@ -1,6 +1,7 @@
 package com.globalvia.genovias.api.models.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.globalvia.genovias.api.models.base.Copyable;
 import com.globalvia.genovias.api.models.base.Identificable;
@@ -21,7 +22,7 @@ import lombok.Builder;
 import lombok.Data;
 
 @Entity
-@Table(name = "REPORTES_DIARIOS", uniqueConstraints = @UniqueConstraint(columnNames = "fecha"))
+@Table(name = "REPORTES_DIARIOS", uniqueConstraints = @UniqueConstraint(columnNames = {"fecha", "hora"}))
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -53,7 +54,10 @@ public class ReporteDiario implements Identificable<Long>, Copyable<ReporteDiari
   private int nivelCombustibleSalida;
 
   @Column(nullable = false)
-  private LocalDateTime fecha;
+  private LocalDate fecha;
+
+  @Column(nullable = false)
+  private LocalTime hora;
 
   @Override
   public ReporteDiario copyWith(ReporteDiario copy) {
@@ -65,7 +69,8 @@ public class ReporteDiario implements Identificable<Long>, Copyable<ReporteDiari
       .kilometrajeSalida(copy.kilometrajeSalida != 0 ? copy.kilometrajeSalida : kilometrajeSalida)
       .nivelCombustibleEntrada(copy.nivelCombustibleEntrada != 0 ? copy.nivelCombustibleEntrada : nivelCombustibleEntrada)
       .nivelCombustibleSalida(copy.nivelCombustibleSalida != 0 ? copy.nivelCombustibleSalida : nivelCombustibleSalida)
-      .fecha(copy.fecha != null ? copy.fecha : fecha) 
+      .fecha(copy.fecha != null ? copy.fecha : fecha)
+      .hora(copy.hora != null ? copy.hora : hora) 
       .build();
 
   }

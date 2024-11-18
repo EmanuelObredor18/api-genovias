@@ -30,7 +30,7 @@ public class BaseController<E extends Identificable<ID> & Copyable<E, ID>, DTO e
   }
 
   @DeleteMapping("/delete/{id}")
-  public ResponseEntity<String> deleteEntityById(@PathVariable(required = true) ID id) {
+  public ResponseEntity<String> deleteEntityById(@Valid @PathVariable(required = true) ID id) {
     return service.deleteEntityById(id);
   }
 
@@ -46,5 +46,10 @@ public class BaseController<E extends Identificable<ID> & Copyable<E, ID>, DTO e
       @RequestParam(defaultValue = "DESC") String sortDirection,
       @RequestParam(defaultValue = "id") String sortBy) {
     return service.getAllEntities(size, page, sortDirection, sortBy);
+  }
+  
+  @GetMapping("/getById/{id}")
+  public ResponseEntity<DTO> getEntityById(@Valid @PathVariable(required = true) ID id) {
+    return service.findEntityDTOById(id);
   }
 }

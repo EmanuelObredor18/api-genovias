@@ -1,6 +1,7 @@
 package com.globalvia.genovias.api.models.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,11 +23,15 @@ public class ReporteServicioAmbulanciaDTO implements Identificable<Long>, Dateab
 
   private Long id;
 
-  @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-  @DateTimeFormat(pattern = "dd/MM/yyyy HH::mm:ss")
+  @JsonFormat(pattern = "dd/MM/yyyy")
+  @DateTimeFormat(pattern = "dd/MM/yyyy")
   @NotNull
-  private LocalDateTime fecha;
+  private LocalDate fecha;
 
   private String vehiculoPlaca;
 
+  @NotNull
+  @DateTimeFormat(pattern = "HH:mm:ss")
+  @JsonFormat(pattern = "HH:mm:ss")
+  private LocalTime hora;
 }

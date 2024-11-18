@@ -1,5 +1,7 @@
 package com.globalvia.genovias.api.models.entities;
 
+import java.time.LocalTime;
+
 import com.globalvia.genovias.api.auth.model.UserEntity;
 import com.globalvia.genovias.api.models.base.Copyable;
 import com.globalvia.genovias.api.models.base.Identificable;
@@ -45,7 +47,7 @@ public class Responsable implements Identificable<Short>, Copyable<Responsable, 
       .id(copy.id != null ? copy.id : this.id)
       .nombre(copy.nombre != null ? copy.nombre : this.nombre)
       .apellido(copy.apellido != null ? copy.apellido : this.apellido)
-      .userEntity(copy.userEntity != null ? copy.userEntity.copyWith(copy.userEntity) : userEntity)
+      //.userEntity(copy.userEntity != null ? copy.userEntity.copyWith(copy.userEntity) : userEntity)
       .build();
   }
 

@@ -1,12 +1,10 @@
 package com.globalvia.genovias.api.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,8 +23,6 @@ import com.globalvia.genovias.api.auth.repository.UserRepository;
 import com.globalvia.genovias.api.auth.util.JwtUtils;
 import com.globalvia.genovias.api.models.dto.ResponsableDTO;
 import com.globalvia.genovias.api.models.entities.Responsable;
-import com.globalvia.genovias.api.repositories.ResponsableRepository;
-import com.globalvia.genovias.api.services.base.BaseCrudService;
 import com.globalvia.genovias.api.services.base.interfaces.BaseService;
 
 import jakarta.transaction.Transactional;

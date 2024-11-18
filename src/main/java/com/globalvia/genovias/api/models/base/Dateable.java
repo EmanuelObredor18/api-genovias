@@ -1,7 +1,9 @@
 package com.globalvia.genovias.api.models.base;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public interface Dateable {
-  LocalDateTime getFecha();
+  LocalDate getFecha();
+  LocalTime getHora();
 }

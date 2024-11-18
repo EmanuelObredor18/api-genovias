@@ -37,14 +37,14 @@ import com.globalvia.genovias.api.validator.base.ReporteValidator;
 @Configuration
 public class BaseServiceConfig {
 
-  @Bean
-  BaseService<ReporteAccidente, ReporteAccidenteDTO, Long> reporteAccidenteBaseService(
-      EntityFactory<ReporteAccidente, Long> entityFactory,
-      DTOProcessService<ReporteAccidente, ReporteAccidenteDTO> dtoProcessService,
-      ReporteValidator<ReporteAccidente, Long> validator) {
+  // @Bean
+  // BaseService<ReporteAccidente, ReporteAccidenteDTO, Long> reporteAccidenteBaseService(
+  //     EntityFactory<ReporteAccidente, Long> entityFactory,
+  //     DTOProcessService<ReporteAccidente, ReporteAccidenteDTO> dtoProcessService,
+  //     ReporteValidator<ReporteAccidente, Long> validator) {
 
-    return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, ReporteAccidenteDTO.class, validator);
-  }
+  //   return new ReporteBaseCrudService<>(entityFactory, dtoProcessService, ReporteAccidenteDTO.class, validator);
+  // }
 
   @Bean
   BaseService<Vehiculo, VehiculoDTO, String> vehiculoBaseService(
@@ -91,7 +91,7 @@ public class BaseServiceConfig {
   }
 
   @Bean
-  BaseService<ReporteServicioGrua, ReporteServicioGruaDTO, Long> reporteServicioGruaBaseService(
+  ReporteBaseCrudService<ReporteServicioGrua, ReporteServicioGruaDTO, Long> reporteServicioGruaBaseService(
       EntityFactory<ReporteServicioGrua, Long> entityFactory,
       DTOProcessService<ReporteServicioGrua, ReporteServicioGruaDTO> dtoProcessService,
       ReporteValidator<ReporteServicioGrua, Long> validator) {
@@ -99,7 +99,7 @@ public class BaseServiceConfig {
   }
 
   @Bean
-  BaseService<ReporteServicioAmbulancia, ReporteServicioAmbulanciaDTO, Long> reporteServicioAmbulanciaBaseService(
+  ReporteBaseCrudService<ReporteServicioAmbulancia, ReporteServicioAmbulanciaDTO, Long> reporteServicioAmbulanciaBaseService(
       EntityFactory<ReporteServicioAmbulancia, Long> entityFactory,
       DTOProcessService<ReporteServicioAmbulancia, ReporteServicioAmbulanciaDTO> dtoProcessService,
       ReporteValidator<ReporteServicioAmbulancia,Long> validator) {
@@ -107,7 +107,7 @@ public class BaseServiceConfig {
   }
 
   @Bean
-  BaseService<ReporteAuxilioVial, ReporteAuxilioVialDTO, Long> reporteAuxilioVialBaseService(
+  ReporteBaseCrudService<ReporteAuxilioVial, ReporteAuxilioVialDTO, Long> reporteAuxilioVialBaseService(
       EntityFactory<ReporteAuxilioVial, Long> entityFactory,
       DTOProcessService<ReporteAuxilioVial, ReporteAuxilioVialDTO> dtoProcessService,
       ReporteValidator<ReporteAuxilioVial, Long> validator) {
@@ -115,7 +115,7 @@ public class BaseServiceConfig {
   }
 
   @Bean
-  BaseService<ReporteDiario, ReporteDiarioDTO, Long> reporteDiarioBaseService(
+  ReporteBaseCrudService<ReporteDiario, ReporteDiarioDTO, Long> reporteDiarioBaseService(
       EntityFactory<ReporteDiario, Long> entityFactory,
       DTOProcessService<ReporteDiario, ReporteDiarioDTO> dtoProcessService,
       ReporteValidator<ReporteDiario, Long> validator) {

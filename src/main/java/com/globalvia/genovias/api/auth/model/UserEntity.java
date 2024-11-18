@@ -40,7 +40,8 @@ public class UserEntity implements Identificable<Long>, Copyable<UserEntity, Lon
     @Column(name = "credential_No_Expired")
     private boolean credentialNoExpired;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Builder.Default
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 

@@ -10,7 +10,6 @@ import com.globalvia.genovias.api.models.entities.Direccion;
 import com.globalvia.genovias.api.models.entities.ReporteAuxilioVial;
 import com.globalvia.genovias.api.models.entities.Responsable;
 import com.globalvia.genovias.api.services.base.interfaces.BaseService;
-import com.globalvia.genovias.api.validator.base.ReporteValidator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +22,6 @@ public class ReporteAuxilioVialDTOService implements DTOProcessService<ReporteAu
   private final BaseService<Direccion, DireccionDTO, Byte> direccionService;
 
   private final ModelMapper modelMapper;
-  private final ReporteValidator<ReporteAuxilioVial, Long> reporteAuxilioVialValidator;
 
   @Override
   public ReporteAuxilioVial postProcess(ReporteAuxilioVialDTO input, boolean isNew) {
@@ -31,9 +29,7 @@ public class ReporteAuxilioVialDTOService implements DTOProcessService<ReporteAu
     Direccion direccion = direccionService.findEntityById(input.getDireccionId()).getBody();
 
     ReporteAuxilioVial reporteAuxilioVial = modelMapper.map(input, ReporteAuxilioVial.class);
-  
-    reporteAuxilioVialValidator.validateFecha(input.getFecha());
-    
+      
     return reporteAuxilioVial.copyWith(ReporteAuxilioVial.builder().direccion(direccion).responsable(responsable).build());
   }
   
