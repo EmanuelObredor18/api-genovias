@@ -25,50 +25,49 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ReporteAccidenteDTO implements Identificable<Long>, Dateable {
-  
-  @Schema(description = "ID of the entity", accessMode = Schema.AccessMode.READ_ONLY)
-  private Long id;
 
-  @NotNull
-  @JsonFormat(pattern = "dd/MM/yyyy")
-  @DateTimeFormat(pattern = "dd/MM/yyyy")
-  private LocalDate fecha;
+    @Schema(description = "ID of the report", accessMode = Schema.AccessMode.READ_ONLY, example = "123")
+    private Long id;
 
-  @NotNull
-  @DateTimeFormat(pattern = "HH:mm:ss")
-  @JsonFormat(pattern = "HH:mm:ss")
-  private LocalTime hora;
-  
-  @NotEmpty
-  @Builder.Default
-  private Set<String> vehiculosPlacas = new HashSet<>();
-  
-  @NotNull
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  private Short responsableId;
-  
-  @NotNull
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  private Short tipoAccidenteId;
+    @NotNull
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate fecha;
 
-  @NotNull
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  private Byte direccionId;
-  
-  @JsonProperty("calle")
-  private String direccionCalle;
-  
-  @JsonProperty("carrera")
-  private String direccionCarrera;
-  
-  @JsonProperty("puntoDeReferencia")
-  private String direccionPuntoReferenciaNombre;
+    @NotNull
+    @JsonFormat(pattern = "HH:mm:ss")
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    private LocalTime hora;
 
-  private String responsableNombre;
+    @NotEmpty
+    @Builder.Default
+    private Set<String> vehiculosPlacas = new HashSet<>();
 
-  private String responsableApellido;
-  
-  @JsonProperty("tipoAccidente")
-  private String tipoAccidenteTipo;
-  
+    @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Short responsableId;
+
+    @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Short tipoAccidenteId;
+
+    @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Byte direccionId;
+
+    @JsonProperty("calle")
+    private String direccionCalle;
+
+    @JsonProperty("carrera")
+    private String direccionCarrera;
+
+    @JsonProperty("puntoDeReferencia")
+    private String direccionPuntoReferenciaNombre;
+
+    private String responsableNombre;
+
+    private String responsableApellido;
+
+    @JsonProperty("tipoAccidente")
+    private String tipoAccidenteTipo;
 }

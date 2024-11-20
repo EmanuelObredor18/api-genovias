@@ -32,7 +32,7 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
   protected final ResponseBody successCreatedResponse = new ResponseBody(ResponseStatus.SUCCESS,
       HttpStatus.CREATED.value(), "Entidad creada exitosamente");
   protected final ResponseBody successUpdatedResponse = new ResponseBody(ResponseStatus.SUCCESS, HttpStatus.OK.value(),
-      "Entidad actualizado exitosamente");
+      "Entidad actualizada exitosamente");
 
   private final JpaRepository<E, ID> repository;
   private final Class<E> entityClass;
@@ -78,7 +78,7 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
     E entity = mapDtoToEntity(input, true);
     repository.save(entity);
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(successUpdatedResponse);
+    return ResponseEntity.status(HttpStatus.CREATED).body(successCreatedResponse);
   }
 
   // Optimización en la actualización de la entidad
@@ -95,7 +95,7 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
     modelMapper.map(input, existingEntity); // Mapear solo los campos del DTO
     repository.save(existingEntity);
 
-    return ResponseEntity.status(HttpStatus.OK).body(successCreatedResponse);
+    return ResponseEntity.status(HttpStatus.OK).body(successUpdatedResponse);
   }
 
   // Método para eliminar entidad por ID

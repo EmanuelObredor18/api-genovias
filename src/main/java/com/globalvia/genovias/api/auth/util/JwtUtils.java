@@ -32,7 +32,7 @@ public class JwtUtils {
         calendar.setTime(new Date());
         calendar.add(Calendar.MONTH, 2);
 
-        String username = authentication.getPrincipal().toString();
+        String username = authentication.getName();
         String authorities = authentication.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)

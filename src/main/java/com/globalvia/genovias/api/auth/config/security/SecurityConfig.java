@@ -33,8 +33,10 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(http -> {
-          http.requestMatchers("/api/v0/*/get/**", "api/v0/*/delete/**", "api/v0/*/updateById/**").hasRole("ADMIN");
+          http.requestMatchers(
+            "/api/v0/*/get/**").hasAnyRole("ADMIN", "USER");
           http.requestMatchers("/api/v0/*/post/new").hasAnyRole("ADMIN", "USER");
+          http.requestMatchers("api/v0/*/delete/**", "api/v0/*/updateById/**").hasRole("ADMIN");
           http.requestMatchers("/api/v0/auth/**").permitAll();
           http.anyRequest().permitAll();
         })
