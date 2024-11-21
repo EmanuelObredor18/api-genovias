@@ -47,13 +47,14 @@ public class UserEntity implements Identificable<Long>, Copyable<UserEntity, Lon
 
     @Override
     public UserEntity copyWith(UserEntity copy) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'copyWith'");
+       return UserEntity.builder()
+        .id(copy.id != null ? copy.id : id)
+        .username(copy.username != null ? copy.username : username)
+        .build();
     }
 
     @Override
     public UserEntity copyId(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'copyId'");
+        return copyWith(UserEntity.builder().id(id != null ? this.id : id).build());
     }
 }

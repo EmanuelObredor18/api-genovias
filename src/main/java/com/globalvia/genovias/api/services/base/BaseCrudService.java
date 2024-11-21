@@ -92,8 +92,11 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
     }
 
     E existingEntity = findEntityOrThrow(id);
-    modelMapper.map(input, existingEntity); // Mapear solo los campos del DTO
-    repository.save(existingEntity);
+    E entity = mapDtoToEntity(input, true);
+
+    E entityCopy = existingEntity.copyWith(entity).copyId(id);
+  
+    repository.save(entityCopy);
 
     return ResponseEntity.status(HttpStatus.OK).body(successUpdatedResponse);
   }
