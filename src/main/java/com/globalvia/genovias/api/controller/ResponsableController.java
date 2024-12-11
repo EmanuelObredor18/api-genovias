@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.globalvia.genovias.api.models.dto.ResponsableDTO;
 import com.globalvia.genovias.api.models.entities.Responsable;
+import com.globalvia.genovias.api.repositories.ResponsableRepository;
 import com.globalvia.genovias.api.services.ResponsableService;
 import com.globalvia.genovias.api.services.base.interfaces.BaseService;
 
@@ -17,12 +18,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping(BaseEndpoint.BASE_ENDPOINT + "/responsable")
-public class ResponsableController extends BaseController<Responsable, ResponsableDTO, Short>{
+public class ResponsableController extends OptionController<Responsable, ResponsableDTO, Short>{
   
   private final ResponsableService service;
 
-  public ResponsableController(BaseService<Responsable, ResponsableDTO, Short> service) {
-    super(service);
+  public ResponsableController(BaseService<Responsable, ResponsableDTO, Short> service, ResponsableRepository repository) {
+    super(service, repository);
     this.service = (ResponsableService) service;
   }
   

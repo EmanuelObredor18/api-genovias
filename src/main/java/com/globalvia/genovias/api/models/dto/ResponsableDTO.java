@@ -20,8 +20,7 @@ public class ResponsableDTO implements Identificable<Short> {
 
   private String apellido;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private Long userEntityId;
 
   @JsonProperty("userUsername")

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.globalvia.genovias.api.models.base.Dateable;
 import com.globalvia.genovias.api.models.base.Identificable;
+import com.globalvia.genovias.api.validator.annotations.Range;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -44,9 +45,11 @@ public class ReporteDiarioDTO implements Identificable<Long>, Dateable {
   private int kilometrajeSalida;
 
   @Min(value = 1)
+  @Range
   private int nivelCombustibleEntrada;
 
   @Min(value = 1)
+  @Range
   private int nivelCombustibleSalida;
 
   @JsonFormat(pattern = "dd/MM/yyyy")

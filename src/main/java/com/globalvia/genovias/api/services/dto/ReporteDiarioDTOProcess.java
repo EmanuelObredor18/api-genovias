@@ -30,7 +30,7 @@ public class ReporteDiarioDTOProcess implements DTOProcessService<ReporteDiario,
     Responsable responsable = responsableService.findEntityById(input.getResponsableId()).getBody();
 
     ReporteDiario reporteDiario = modelMapper.map(input, ReporteDiario.class);
-    return reporteDiario.copyWith(ReporteDiario.builder().camioneta(camioneta).responsable(responsable).build());
+    return reporteDiario.copyWith(ReporteDiario.builder().camioneta(camionetaCopy).responsable(responsable).build());
     
   }
 
@@ -38,7 +38,9 @@ public class ReporteDiarioDTOProcess implements DTOProcessService<ReporteDiario,
   public void deleteProcess(ReporteDiarioDTO input) {
     Camioneta camioneta = camionetaService.findEntityById(input.getCamionetaPlaca()).getBody();
 
-    Camioneta camionetaCopy = camioneta.copyWith(Camioneta.builder().kilometraje(camioneta.getKilometraje() - input.getKilometrajeSalida()).build());
+    int newKilometraje = camioneta.getKilometraje() - input.getKilometrajeSalida();
+
+    Camioneta camionetaCopy = camioneta.copyWith(Camioneta.builder().kilometraje(newKilometraje >= 0 ? newKilometraje : 0).build());
 
     camionetaService.updateEntityById(modelMapper.map(camionetaCopy, CamionetaDTO.class), camionetaCopy.getId());
   }

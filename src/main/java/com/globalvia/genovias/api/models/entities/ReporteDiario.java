@@ -64,7 +64,7 @@ public class ReporteDiario implements Identificable<Long>, Copyable<ReporteDiari
     return ReporteDiario.builder()
       .id(copy.id != null ? copy.id : id)
       .camioneta(copy.camioneta != null ? copy.camioneta.copyWith(camioneta) : camioneta)
-      .responsable(copy.responsable != null ? copy.responsable.copyWith(responsable) : responsable)
+      .responsable(copy.responsable != null ? responsable.copyWith(copy.responsable) : responsable)
       .kilometrajeEntrada(copy.kilometrajeEntrada != 0 ? copy.kilometrajeEntrada : kilometrajeEntrada)
       .kilometrajeSalida(copy.kilometrajeSalida != 0 ? copy.kilometrajeSalida : kilometrajeSalida)
       .nivelCombustibleEntrada(copy.nivelCombustibleEntrada != 0 ? copy.nivelCombustibleEntrada : nivelCombustibleEntrada)

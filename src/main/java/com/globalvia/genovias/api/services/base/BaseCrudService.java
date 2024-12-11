@@ -91,12 +91,9 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
           "Error de validación. Entidad con id " + id + " no encontrado(a) en la base de datos");
     }
 
-    E existingEntity = findEntityOrThrow(id);
+    findEntityOrThrow(id);
     E entity = mapDtoToEntity(input, true);
-
-    E entityCopy = existingEntity.copyWith(entity).copyId(id);
-  
-    repository.save(entityCopy);
+    repository.save(entity.copyId(id));
 
     return ResponseEntity.status(HttpStatus.OK).body(successUpdatedResponse);
   }
@@ -136,7 +133,7 @@ public class BaseCrudService<E extends Identificable<ID> & Copyable<E, ID>, DTO 
   }
 
   @Override
-  public final ResponseEntity<E> findEntityById(ID id) {
+  public ResponseEntity<E> findEntityById(ID id) {
     E entity = findEntityOrThrow(id);
     return ResponseEntity.ok(entity);
   }

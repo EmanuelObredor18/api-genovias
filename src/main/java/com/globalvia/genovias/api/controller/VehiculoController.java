@@ -5,14 +5,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.globalvia.genovias.api.models.dto.VehiculoDTO;
 import com.globalvia.genovias.api.models.entities.Vehiculo;
+import com.globalvia.genovias.api.models.projections.options.VehiculoOption;
+import com.globalvia.genovias.api.repositories.OptionRepository;
 import com.globalvia.genovias.api.services.base.interfaces.BaseService;
 
-@RequestMapping(BaseEndpoint.BASE_ENDPOINT + "/api/v0/vehiculo")
+@RequestMapping(BaseEndpoint.BASE_ENDPOINT + "/vehiculo")
 @RestController
-public class VehiculoController extends BaseController<Vehiculo, VehiculoDTO, String> {
+public class VehiculoController extends OptionController<Vehiculo, VehiculoDTO, String> {
   
-  public VehiculoController(BaseService<Vehiculo, VehiculoDTO, String> service) {
-    super(service);
+  public VehiculoController(BaseService<Vehiculo, VehiculoDTO, String> service, OptionRepository<Vehiculo, VehiculoOption, String> optionRepository) {
+    super(service, optionRepository);
   }
 
 }
